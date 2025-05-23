@@ -1,0 +1,32 @@
+{
+  "name": "api-rest-node",
+  "version": "1.0.0",
+  "description": "App de xestión de socios de asociación ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vero-ball/DAWproyecto.git"
+  },
+  "author": "Verónica Rivadulla Deschamps",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.15.0",
+    "multer": "^2.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/vero-ball/DAWproyecto/issues"
+  },
+  "homepage": "https://github.com/vero-ball/DAWproyecto#readme"
+}
