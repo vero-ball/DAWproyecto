@@ -12,11 +12,11 @@ const socioSchema = new mongoose.Schema({
   dataAlta: { type: Date, required: true },
   dataBaixa: { type: Date },
   motivoBaixa: { type: String },
-  reciboNumero: { type: Number, required: true },
-  ano: { type: Number, required: true },
-  cota: { type: Number, required: true },
-  dataCobro: { type: Date },
-  impago: { type: Boolean, default: false }
+//   reciboNumero: { type: Number, required: true },
+//   ano: { type: Number, required: true },
+//   cota: { type: Number, required: true },
+//   dataCobro: { type: Date },
+//   impago: { type: Boolean, default: false }
 });
 
 module.exports = mongoose.model('Socio', socioSchema);
