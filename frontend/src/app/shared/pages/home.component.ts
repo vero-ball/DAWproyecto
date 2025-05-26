@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-home',
   standalone: true,
   imports: [],
-  templateUrl: './navbar.component.html',
+  templateUrl: './home.component.html',
   styles: [`
     :host {
       display: block;
@@ -12,4 +12,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   `],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavbarComponent { }
+export class HomeComponent { }
