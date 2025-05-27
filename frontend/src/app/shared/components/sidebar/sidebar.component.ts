@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -25,7 +26,7 @@ import { RouterModule } from '@angular/router';
         .menu {
           display: none;
         }
-        &.is-active .menu {
+        .is-active .menu {
           display: block;
         }
       }
@@ -34,7 +35,15 @@ import { RouterModule } from '@angular/router';
   `]
 })
 export class SidebarComponent {
+
   public isOpen = true;
+  public rol: 'socio' | 'directivo' | 'webmaster' = 'socio';
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
+    this.rol = this.authService.getRol();
+  }
 
   toggleSidebar() {
     this.isOpen = !this.isOpen;
