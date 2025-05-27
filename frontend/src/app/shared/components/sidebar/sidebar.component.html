@@ -1,0 +1,25 @@
+<nav class="navbar is-light is-flex-direction-column is-align-items-stretch p-3 sidebar"
+     [ngClass]="{ 'is-active': isOpen }">
+
+  <!-- Header do sidebar -->
+  <div class="is-hidden-tablet is-flex is-justify-content-space-between mb-4">
+    <strong>Menú</strong>
+    <button class="button is-light" (click)="toggleSidebar()">
+      <span class="icon">
+        <i class="fas" [ngClass]="{ 'fa-bars': !isOpen, 'fa-times': isOpen }"></i>
+      </span>
+    </button>
+  </div>
+
+  <!-- Menú -->
+  <aside class="menu" [ngClass]="{ 'is-hidden-mobile': !isOpen }">
+    <p class="menu-label">Menú</p>
+    <ul class="menu-list">
+      <li><a routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a></li>
+      <li><a routerLink="/socios" routerLinkActive="is-active">Socios</a></li>
+      <li><a routerLink="/actividades" routerLinkActive="is-active">Actividades</a></li>
+      <li><a routerLink="/actas" routerLinkActive="is-active">Actas</a></li>
+      <li><a routerLink="/economico" routerLinkActive="is-active">Económico</a></li>
+    </ul>
+  </aside>
+</nav>

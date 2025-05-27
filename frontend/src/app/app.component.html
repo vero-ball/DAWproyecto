@@ -1,2 +1,17 @@
 <app-navbar></app-navbar>
-<router-outlet></router-outlet>
+<div class="columns is-gapless">
+  <!-- Sidebar fixo -->
+  <div class="column is-2 is-hidden-mobile">
+    <app-sidebar></app-sidebar>
+  </div>
+
+  <!-- Sidebar móbil (visible só en móbil) -->
+  <div class="is-hidden-tablet">
+    <app-sidebar></app-sidebar>
+  </div>
+
+  <!-- Contido principal -->
+  <main class="column p-5">
+    <router-outlet></router-outlet>
+  </main>
+</div>
