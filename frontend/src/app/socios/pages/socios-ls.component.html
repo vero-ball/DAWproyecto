@@ -1,1 +1,34 @@
-<p>socios-ls works!</p>,
+<h1>{{ titulo }}</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Número</th>
+      <th>Nome</th>
+      <th>Apelidos</th>
+      <th>DNI</th>
+      <th>Teléfono</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <th>Número</th>
+      <th>Nome</th>
+      <th>Apelidos</th>
+      <th>DNI</th>
+      <th>Teléfono</th>
+      <th>Email</th>
+    </tr>
+  </tfoot>
+  <tbody>
+    <tr *ngFor="let socio of socios">
+      <td>{{ socio.numeroSocio }}</td>
+      <td>{{ socio.nome }}</td>
+      <td>{{ socio.apelidos }}</td>
+      <td>{{ socio.dni }}</td>
+      <td>{{ socio.telefono }}</td>
+      <td>{{ socio.email }}</td>
+    </tr>
+  </tbody>
+</table>

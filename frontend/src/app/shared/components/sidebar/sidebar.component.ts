@@ -26,7 +26,7 @@ import { AuthService } from 'src/app/core/auth/auth.service';
         .menu {
           display: none;
         }
-        .is-active .menu {
+        &.is-active .menu {
           display: block;
         }
       }
