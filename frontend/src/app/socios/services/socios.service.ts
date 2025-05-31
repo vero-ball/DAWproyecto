@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
-import { Socio } from '../models/socios.model';
+import { Socio } from '../models/socio.model';
 import { ApiService } from 'src/app/shared/services/api.service';
 
 @Injectable({

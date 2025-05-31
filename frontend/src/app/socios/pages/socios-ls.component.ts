@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Socio } from '../models/socios.model';
+import { Socio } from '../models/socio.model';
 import { SociosService } from '../services/socios.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';

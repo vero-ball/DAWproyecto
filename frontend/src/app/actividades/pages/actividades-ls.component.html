@@ -1,1 +1,45 @@
-<p>actividades-ls works!</p>,
+<div class="flex justify-between items-center mb-6">
+  <h1 class="text-3xl font-bold">Listado de Actividades</h1>
+  <button class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+          [routerLink]="['/actividades/ne']">
+    <i class="fas fa-plus"></i>
+    Nova Actividade
+  </button>
+</div>
+
+<div class="card">
+  <table class="min-w-full bg-white border border-gray-200 rounded shadow text-sm">
+    <thead>
+      <tr class="bg-gray-100">
+        <th class="px-4 py-2 font-semibold text-left">Nome</th>
+        <th class="px-4 py-2 font-semibold text-left">Descrición</th>
+        <th class="px-4 py-2 font-semibold text-left">Data</th>
+        <th class="px-4 py-2 font-semibold text-left">Lugar</th>
+        <!-- <th class="px-4 py-2 font-semibold text-left">Participantes</th> -->
+        <th class="px-4 py-2 font-semibold text-center">Accións</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let actividade of actividades" class="hover:bg-blue-50">
+        <td class="px-4 py-2 border-t">{{ actividade.nome }}</td>
+        <td class="px-4 py-2 border-t">{{ actividade.descricion }}</td>
+        <td class="px-4 py-2 border-t">{{ actividade.data | date:'shortDate' }}</td>
+        <td class="px-4 py-2 border-t">{{ actividade.lugar }}</td>
+        <!-- <td class="px-4 py-2 border-t">
+          <span *ngIf="actividade.participantes?.length; else senParticipantes">
+            {{ actividade.participantes.length }}
+          </span>
+          <ng-template #senParticipantes>0</ng-template>
+        </td> -->
+        <td class="px-4 py-2 border-t text-center">
+          <a [routerLink]="['/actividades/ne', actividade._id]" class="inline-flex items-center text-blue-600 hover:text-blue-800 mr-2" title="Editar Actividade">
+            <span class="inline-block cursor-pointer text-blue-600 hover:text-blue-800 mx-1"><i class="fas fa-edit"></i></span>
+          </a>
+          <a (click)="borrarActividade(actividade)" class="inline-flex items-center text-red-600 hover:text-red-800" title="Borrar Actividade">
+            <span class="inline-block cursor-pointer text-red-600 hover:text-red-800 mx-1"><i class="fas fa-trash"></i></span>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -33,8 +33,17 @@ export const routes: Routes = [
       breadcrumb: [ {nombre: 'Inicio', ruta: 'app'}, {nombre: 'Editar Socio', ruta: 'socios'} ]
     }
   },
-  { path: 'actas', component: ActasLsComponent },
-  { path: 'actividades', component: ActividadesLsComponent },
+  {
+    path: 'actas', component: ActasLsComponent
+  },
+  {
+    path: 'actividades',
+    component: ActividadesLsComponent,
+    data: {
+      title: 'Listado de Actividades',
+      breadcrumb: [ {nombre: 'Inicio', ruta: 'app'}, {nombre: 'Listado de Actividades', ruta: 'actividades'} ]
+    }
+  },
   { path: '**', redirectTo: '' },
 
 ];

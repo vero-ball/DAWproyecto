@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Socio } from '../models/socios.model';
+import { Socio } from '../models/socio.model';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SociosService } from '../services/socios.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
