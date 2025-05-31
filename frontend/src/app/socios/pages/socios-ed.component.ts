@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Socio } from '../models/socios.model';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SociosService } from '../services/socios.service';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, Route, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-socios-ed',
@@ -10,6 +10,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
   imports: [
     FormsModule,
     ReactiveFormsModule,
+    RouterLink
 
   ],
   templateUrl: './socios-ed.component.html',
@@ -52,8 +53,15 @@ export class SociosEdComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(params => {
-      const id = params['id'];
+    this.activatedRoute.paramMap.subscribe(paramMap => {
+      if(paramMap.has('id') && paramMap.get('id') !== null) {
+        this.titulo = 'Editar Socio';
+      } else {
+        this.titulo = 'Novo Socio';
+      }
+      const id = paramMap.get('id');
+      console.log('🔄 Parámetro id recibido:', id);
+      // Cargar el socio si existe el id
       if (id) {
         this.sociosService.getSocioById(id).subscribe(socio => {
           this.socio = socio;
@@ -75,6 +83,18 @@ export class SociosEdComponent implements OnInit {
           });
           console.log('🔄 Socio cargado:', this.socio);
         });
+      } else {
+        this.socio = {
+          nome: '',
+          apelidos: '',
+          numeroSocio: 0,
+          dni: '',
+          enderezo: '',
+          telefono: '',
+          email: '',
+          dataAlta: new Date().toISOString().split('T')[0], // Fecha actual
+        };
+        console.log('🔄 Nuevo socio inicializado:', this.socio);
       }
     });
   }
@@ -82,5 +102,38 @@ export class SociosEdComponent implements OnInit {
   gardarSocio() {
     console.log('🔄 Guardando socio:', this.socio);
     // Lógica para guardar el socio
+    if (this.formEditarSocio.valid) {
+      const socioData: Socio = this.formEditarSocio.value;
+      console.log('🔄 Datos del socio a guardar:', socioData);
+      this.cargando = true;
+
+      if (this.socio._id) {
+        // Editar un socio existente
+        this.sociosService.actualizaSocio(this.socio._id, socioData).subscribe({
+          next: () => {
+            console.log('✅ Socio actualizado correctamente');
+            this.router.navigate(['/socios']);
+          },
+          error: (err) => {
+            console.error('❌ Error actualizando socio:', err);
+            this.cargando = false;
+          }
+        });
+      } else {
+        // Crear un nuevo socio
+        this.sociosService.createSocio(socioData).subscribe({
+          next: () => {
+            console.log('✅ Socio creado correctamente');
+            this.router.navigate(['/socios']);
+          },
+          error: (err) => {
+            console.error('❌ Error creando socio:', err);
+            this.cargando = false;
+          }
+        });
+      }
+    } else {
+      console.warn('⚠️ Formulario inválido, no se guardará el socio');
+    }
   }
 }

@@ -67,8 +67,21 @@ export class SociosService {
     );
   }
 
-  updateSocio(id: string, socio: Socio): Observable<Socio> {
-    return this.api.put<Socio>(`${this.endpoint}/${id}`, socio);
+  actualizaSocio(id: string, socio: Socio): Observable<Socio> {
+    console.log('✏️ SociosService: Chamando updateSocio...');
+    console.log('🌐 URL:', `http://localhost:5000/api/${this.endpoint}/${id}`);
+    console.log('📦 Datos enviados:', socio);
+
+    return this.api.put<Socio>(`${this.endpoint}/${id}`, socio).pipe(
+      tap({
+        next: (data) => {
+          console.log('✅ SociosService: Socio actualizado:', data);
+        },
+        error: (error) => {
+          console.error('❌ SociosService: Error en updateSocio:', error);
+        }
+      })
+    );
   }
 
   deleteSocio(id: string): Observable<any> {
