@@ -35,11 +35,36 @@ export class SociosService {
   }
 
   getSocioById(id: string): Observable<Socio> {
-    return this.api.get<Socio>(`${this.endpoint}/${id}`);
+    console.log('🔄 SociosService: Chamando getSocioById...');
+    console.log('🌐 URL:', `http://localhost:5000/api/${this.endpoint}/${id}`);
+
+    return this.api.get<Socio>(`${this.endpoint}/${id}`).pipe(
+      tap({
+        next: (data) => {
+          console.log('✅ SociosService: Socio recibido:', data);
+        },
+        error: (error) => {
+          console.error('❌ SociosService: Error en getSocioById:', error);
+        }
+      })
+    );
   }
 
   createSocio(socio: Socio): Observable<Socio> {
-    return this.api.post<Socio>(this.endpoint, socio);
+    console.log('🆕 SociosService: Chamando createSocio...');
+    console.log('🌐 URL:', `http://localhost:5000/api/${this.endpoint}`);
+    console.log('📦 Datos enviados:', socio);
+
+    return this.api.post<Socio>(this.endpoint, socio).pipe(
+      tap({
+        next: (data) => {
+          console.log('✅ SociosService: Socio creado:', data);
+        },
+        error: (error) => {
+          console.error('❌ SociosService: Error en createSocio:', error);
+        }
+      })
+    );
   }
 
   updateSocio(id: string, socio: Socio): Observable<Socio> {

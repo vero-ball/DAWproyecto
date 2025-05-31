@@ -1,34 +1,55 @@
-<h1>{{ titulo }}</h1>
+<div class="flex justify-between items-center mb-6">
+  <h1 class="text-3xl font-bold">{{ titulo }}</h1>
+  <button class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+          [routerLink]="['/socios/ne']">
+    <i class="fas fa-plus"></i>
+    Novo Socio
+  </button>
+</div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Número</th>
-      <th>Nome</th>
-      <th>Apelidos</th>
-      <th>DNI</th>
-      <th>Teléfono</th>
-      <th>Email</th>
-    </tr>
-  </thead>
-  <tfoot>
-    <tr>
-      <th>Número</th>
-      <th>Nome</th>
-      <th>Apelidos</th>
-      <th>DNI</th>
-      <th>Teléfono</th>
-      <th>Email</th>
-    </tr>
-  </tfoot>
-  <tbody>
-    <tr *ngFor="let socio of socios">
-      <td>{{ socio.numeroSocio }}</td>
-      <td>{{ socio.nome }}</td>
-      <td>{{ socio.apelidos }}</td>
-      <td>{{ socio.dni }}</td>
-      <td>{{ socio.telefono }}</td>
-      <td>{{ socio.email }}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="card">
+  <table class="min-w-full bg-white border border-gray-200 rounded shadow text-sm">
+    <thead>
+      <tr class="bg-gray-100">
+        <th class="px-4 py-2 font-semibold">Número</th>
+        <th class="px-4 py-2 font-semibold">Nome</th>
+        <th class="px-4 py-2 font-semibold">Apelidos</th>
+        <th class="px-4 py-2 font-semibold">DNI</th>
+        <th class="px-4 py-2 font-semibold">Teléfono</th>
+        <th class="px-4 py-2 font-semibold">Email</th>
+        <th class="px-4 py-2 font-semibold text-center">Accións</th>
+      </tr>
+    </thead>
+    <!-- <tfoot>
+      <tr class="bg-gray-50">
+        <th class="px-4 py-2 font-semibold">Número</th>
+        <th class="px-4 py-2 font-semibold">Nome</th>
+        <th class="px-4 py-2 font-semibold">Apelidos</th>
+        <th class="px-4 py-2 font-semibold">DNI</th>
+        <th class="px-4 py-2 font-semibold">Teléfono</th>
+        <th class="px-4 py-2 font-semibold">Email</th>
+        <th class="px-4 py-2 font-semibold text-center">Accións</th>
+      </tr>
+    </tfoot> -->
+    <tbody>
+      <tr *ngFor="let socio of socios" class="hover:bg-blue-50">
+        <td class="px-4 py-2 border-t">{{ socio.numeroSocio }}</td>
+        <td class="px-4 py-2 border-t">{{ socio.nome }}</td>
+        <td class="px-4 py-2 border-t">{{ socio.apelidos }}</td>
+        <td class="px-4 py-2 border-t">{{ socio.dni }}</td>
+        <td class="px-4 py-2 border-t">{{ socio.telefono }}</td>
+        <td class="px-4 py-2 border-t">{{ socio.email }}</td>
+        <td class="px-4 py-2 border-t text-center">
+          <!-- <a [routerLink]="['/socios/ne', socio.id]" class="inline-flex items-center text-blue-600 hover:text-blue-800 mr-2"> -->
+            <span class="inline-block cursor-pointer text-blue-600 hover:text-blue-800 mx-1"><i class="fas fa-edit"></i></span>
+            <!-- <span>Editar</span> -->
+          <!-- </a> -->
+          <!-- <a [routerLink]="['/socios/edit', socio.id]" class="inline-flex items-center text-red-600 hover:text-red-800"> -->
+            <span class="inline-block cursor-pointer text-red-600 hover:text-red-800 mx-1"><i class="fas fa-trash"></i></span>
+            <!-- <span>Borrar</span> -->
+          <!-- </a> -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

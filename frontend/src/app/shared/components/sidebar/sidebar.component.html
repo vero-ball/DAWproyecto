@@ -1,29 +1,71 @@
-<nav class="navbar is-light is-flex-direction-column is-align-items-stretch p-3 sidebar"
-     [ngClass]="{ 'is-active': isOpen }">
-
-  <!-- Header do sidebar -->
-  <div class="is-hidden-tablet is-flex is-justify-content-space-between mb-4">
-    <strong>Menú</strong>
-    <button class="button is-light" (click)="toggleSidebar()">
-      <span class="icon">
+<nav class="bg-white shadow h-screen w-56 flex flex-col p-4 fixed md:static z-40 transition-transform duration-300"
+  [ngClass]="{ '-translate-x-full md:translate-x-0': !isOpen, 'translate-x-0': isOpen }">
+  <!-- Header do sidebar (solo móvil) -->
+  <div class="flex justify-between items-center mb-6 md:hidden">
+    <strong class="text-lg">Menú</strong>
+    <button class="p-2 rounded hover:bg-gray-200" (click)="toggleSidebar()">
+      <span>
         <i class="fas" [ngClass]="{ 'fa-bars': !isOpen, 'fa-times': isOpen }"></i>
       </span>
     </button>
   </div>
 
   <!-- Menú -->
-  <aside class="menu" [ngClass]="{ 'is-hidden-mobile': !isOpen }">
-    <p class="menu-label">Menú</p>
-    <ul class="menu-list">
-      <li><a routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a></li>
+  <aside class="flex-1" [ngClass]="{ 'hidden md:block': !isOpen }">
+    <p class="text-xs font-semibold text-gray-500 uppercase mb-2">Menú</p>
+    <ul class="space-y-1">
+      <li>
+        <a
+          routerLink="/"
+          routerLinkActive="bg-blue-100 text-blue-700 font-bold"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="block px-3 py-2 rounded hover:bg-blue-50 transition-colors"
+          >Inicio</a
+        >
+      </li>
       <!-- @if(rol !== 'socio') { -->
-        <li><a routerLink="/socios" routerLinkActive="is-active">Socios</a></li>
+      <li>
+        <a
+          routerLink="/socios"
+          routerLinkActive="bg-blue-100 text-blue-700 font-bold"
+          class="block px-3 py-2 rounded hover:bg-blue-50 transition-colors"
+          >Socios</a
+        >
+      </li>
       <!-- } @else { -->
-        <li><a routerLink="/socios/ne/:id" routerLinkActive="is-active">Perfil</a></li>
+      <!-- <li>
+        <a
+          routerLink="/socios/ne/:id"
+          routerLinkActive="bg-blue-100 text-blue-700 font-bold"
+          class="block px-3 py-2 rounded hover:bg-blue-50 transition-colors"
+          >Perfil</a
+        >
+      </li> -->
       <!-- } -->
-      <li><a routerLink="/actividades" routerLinkActive="is-active">Actividades</a></li>
-      <li><a routerLink="/actas" routerLinkActive="is-active">Actas</a></li>
-      <li><a routerLink="/economico" routerLinkActive="is-active">Económico</a></li>
+      <li>
+        <a
+          routerLink="/actividades"
+          routerLinkActive="bg-blue-100 text-blue-700 font-bold"
+          class="block px-3 py-2 rounded hover:bg-blue-50 transition-colors"
+          >Actividades</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/actas"
+          routerLinkActive="bg-blue-100 text-blue-700 font-bold"
+          class="block px-3 py-2 rounded hover:bg-blue-50 transition-colors"
+          >Actas</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/economico"
+          routerLinkActive="bg-blue-100 text-blue-700 font-bold"
+          class="block px-3 py-2 rounded hover:bg-blue-50 transition-colors"
+          >Económico</a
+        >
+      </li>
     </ul>
   </aside>
 </nav>

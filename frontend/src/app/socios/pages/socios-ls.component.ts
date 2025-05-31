@@ -2,12 +2,14 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { Socio } from '../models/socios.model';
 import { SociosService } from '../services/socios.service';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-socios-ls',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   templateUrl: './socios-ls.component.html',
   styles: [`

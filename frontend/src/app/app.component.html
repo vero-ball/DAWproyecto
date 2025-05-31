@@ -1,17 +1,7 @@
 <app-navbar></app-navbar>
-<div class="columns is-gapless">
-  <!-- Sidebar fixo -->
-  <div class="column is-2 is-hidden-mobile">
-    <app-sidebar></app-sidebar>
-  </div>
-
-  <!-- Sidebar móbil (visible só en móbil) -->
-  <div class="is-hidden-tablet">
-    <app-sidebar></app-sidebar>
-  </div>
-
-  <!-- Contido principal -->
-  <main class="column p-5">
+<div class="relative min-h-screen md:flex">
+  <app-sidebar></app-sidebar>
+  <main class="flex-1 p-5 transition-all">
     <router-outlet></router-outlet>
   </main>
 </div>
