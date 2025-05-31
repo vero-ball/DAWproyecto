@@ -22,7 +22,15 @@ export const routes: Routes = [
     component: SociosEdComponent,
     data: {
       title: 'Novo Socio',
-      breadcrumb: [ {nombre: 'Inicio', ruta: 'app'}, {nombre: 'Novo Socio', ruta: 'socios/ne'} ]
+      breadcrumb: [ {nombre: 'Inicio', ruta: 'app'}, {nombre: 'Novo Socio', ruta: 'socios'} ]
+    }
+  },
+  {
+    path: 'socios/ne/:id',
+    component: SociosEdComponent,
+    data: {
+      title: 'Editar Socio',
+      breadcrumb: [ {nombre: 'Inicio', ruta: 'app'}, {nombre: 'Editar Socio', ruta: 'socios'} ]
     }
   },
   { path: 'actas', component: ActasLsComponent },

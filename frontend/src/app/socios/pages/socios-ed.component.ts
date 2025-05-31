@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Socio } from '../models/socios.model';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SociosService } from '../services/socios.service';
-import { ActivatedRoute, Route, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-socios-ed',
@@ -11,7 +12,6 @@ import { ActivatedRoute, Route, Router, RouterLink } from '@angular/router';
     FormsModule,
     ReactiveFormsModule,
     RouterLink
-
   ],
   templateUrl: './socios-ed.component.html',
   styles: `
@@ -32,9 +32,11 @@ export class SociosEdComponent implements OnInit {
     private fb: FormBuilder,
     private sociosService: SociosService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.formEditarSocio = this.fb.group({
+      // _id: [null], // Para el caso de edición
       nome: [''],
       apelidos: [''],
       numeroSocio: [null],
@@ -94,7 +96,7 @@ export class SociosEdComponent implements OnInit {
           email: '',
           dataAlta: new Date().toISOString().split('T')[0], // Fecha actual
         };
-        console.log('🔄 Nuevo socio inicializado:', this.socio);
+        // console.log('🔄 Nuevo socio inicializado:', this.socio);
       }
     });
   }
@@ -109,13 +111,15 @@ export class SociosEdComponent implements OnInit {
 
       if (this.socio._id) {
         // Editar un socio existente
-        this.sociosService.actualizaSocio(this.socio._id, socioData).subscribe({
+        this.sociosService.actualizaSocio(String(this.socio._id), socioData).subscribe({
           next: () => {
             console.log('✅ Socio actualizado correctamente');
+            this.toastr.success('Socio actualizado correctamente', 'Éxito');
             this.router.navigate(['/socios']);
           },
           error: (err) => {
             console.error('❌ Error actualizando socio:', err);
+            this.toastr.error('Error actualizando socio', 'Error');
             this.cargando = false;
           }
         });
@@ -124,10 +128,12 @@ export class SociosEdComponent implements OnInit {
         this.sociosService.createSocio(socioData).subscribe({
           next: () => {
             console.log('✅ Socio creado correctamente');
+            this.toastr.success('Socio creado correctamente', 'Éxito');
             this.router.navigate(['/socios']);
           },
           error: (err) => {
             console.error('❌ Error creando socio:', err);
+            this.toastr.error('Error creando socio', 'Error');
             this.cargando = false;
           }
         });

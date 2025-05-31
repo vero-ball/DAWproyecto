@@ -1,5 +1,5 @@
 export interface Socio {
-  _id?: string;
+  _id?: number;
   nome: string;
   apelidos: string;
   numeroSocio: number;

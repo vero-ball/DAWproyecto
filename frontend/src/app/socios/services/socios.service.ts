@@ -84,8 +84,20 @@ export class SociosService {
     );
   }
 
-  deleteSocio(id: string): Observable<any> {
-    return this.api.delete(`${this.endpoint}/${id}`);
+  borrarSocio(id: string): Observable<any> {
+    console.log('🗑️ SociosService: Chamando borrarSocio...');
+    console.log('🌐 URL:', `http://localhost:5000/api/${this.endpoint}/${id}`);
+
+    return this.api.delete(`${this.endpoint}/${id}`).pipe(
+      tap({
+        next: (data) => {
+          console.log('✅ SociosService: Socio borrado:', data);
+        },
+        error: (error) => {
+          console.error('❌ SociosService: Error en borrarSocio:', error);
+        }
+      })
+    );
   }
 
 }

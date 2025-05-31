@@ -3,6 +3,7 @@ import { Socio } from '../models/socios.model';
 import { SociosService } from '../services/socios.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-socios-ls',
@@ -27,7 +28,8 @@ export class SociosLsComponent implements OnInit {
 
   constructor(
     private sociosService: SociosService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -55,6 +57,26 @@ export class SociosLsComponent implements OnInit {
       },
       error: (err) => {
         console.error('❌ Erro cargando socios:', err);
+        this.cargando = false;
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  borrarSocio(socio: Socio) {
+    console.log('🗑️ Borrando socio:', socio);
+    this.cargando = true;
+
+    this.sociosService.borrarSocio(String(socio._id)!).subscribe({
+      next: () => {
+        console.log('✅ Socio borrado correctamente');
+        this.toastr.success(`Socio ${socio.nome} borrado correctamente`, 'Borrado');
+        this.cdr.detectChanges();
+        this.cargarSocios();
+      },
+      error: (err) => {
+        console.error('❌ Erro ao borrar socio:', err);
+        this.toastr.error(`Erro ao borrar socio ${socio.nome}`, 'Error');
         this.cargando = false;
         this.cdr.detectChanges();
       }

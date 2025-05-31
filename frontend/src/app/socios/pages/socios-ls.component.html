@@ -11,26 +11,15 @@
   <table class="min-w-full bg-white border border-gray-200 rounded shadow text-sm">
     <thead>
       <tr class="bg-gray-100">
-        <th class="px-4 py-2 font-semibold">Número</th>
-        <th class="px-4 py-2 font-semibold">Nome</th>
-        <th class="px-4 py-2 font-semibold">Apelidos</th>
-        <th class="px-4 py-2 font-semibold">DNI</th>
-        <th class="px-4 py-2 font-semibold">Teléfono</th>
-        <th class="px-4 py-2 font-semibold">Email</th>
+        <th class="px-4 py-2 font-semibold text-left">Núm.</th>
+        <th class="px-4 py-2 font-semibold text-left">Nome</th>
+        <th class="px-4 py-2 font-semibold text-left">Apelidos</th>
+        <th class="px-4 py-2 font-semibold text-left">DNI</th>
+        <th class="px-4 py-2 font-semibold text-left">Teléfono</th>
+        <th class="px-4 py-2 font-semibold text-left">Email</th>
         <th class="px-4 py-2 font-semibold text-center">Accións</th>
       </tr>
     </thead>
-    <!-- <tfoot>
-      <tr class="bg-gray-50">
-        <th class="px-4 py-2 font-semibold">Número</th>
-        <th class="px-4 py-2 font-semibold">Nome</th>
-        <th class="px-4 py-2 font-semibold">Apelidos</th>
-        <th class="px-4 py-2 font-semibold">DNI</th>
-        <th class="px-4 py-2 font-semibold">Teléfono</th>
-        <th class="px-4 py-2 font-semibold">Email</th>
-        <th class="px-4 py-2 font-semibold text-center">Accións</th>
-      </tr>
-    </tfoot> -->
     <tbody>
       <tr *ngFor="let socio of socios" class="hover:bg-blue-50">
         <td class="px-4 py-2 border-t">{{ socio.numeroSocio }}</td>
@@ -40,14 +29,12 @@
         <td class="px-4 py-2 border-t">{{ socio.telefono }}</td>
         <td class="px-4 py-2 border-t">{{ socio.email }}</td>
         <td class="px-4 py-2 border-t text-center">
-          <!-- <a [routerLink]="['/socios/ne', socio.id]" class="inline-flex items-center text-blue-600 hover:text-blue-800 mr-2"> -->
+          <a [routerLink]="['/socios/ne', socio._id]" class="inline-flex items-center text-blue-600 hover:text-blue-800 mr-2" title="Editar Socio">
             <span class="inline-block cursor-pointer text-blue-600 hover:text-blue-800 mx-1"><i class="fas fa-edit"></i></span>
-            <!-- <span>Editar</span> -->
-          <!-- </a> -->
-          <!-- <a [routerLink]="['/socios/edit', socio.id]" class="inline-flex items-center text-red-600 hover:text-red-800"> -->
+          </a>
+          <a (click)="borrarSocio(socio)" class="inline-flex items-center text-red-600 hover:text-red-800" title="Borrar Socio">
             <span class="inline-block cursor-pointer text-red-600 hover:text-red-800 mx-1"><i class="fas fa-trash"></i></span>
-            <!-- <span>Borrar</span> -->
-          <!-- </a> -->
+          </a>
         </td>
       </tr>
     </tbody>
