@@ -10,6 +10,7 @@ export interface Socio {
   dataAlta: string;
   dataBaixa?: string;
   motivoBaixa?: string;
+  directivo?: boolean;
   // reciboNumero: string;
   // ano: number;
   // cota: number;
