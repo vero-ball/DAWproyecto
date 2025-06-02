@@ -23,7 +23,7 @@
       <tr *ngFor="let actividade of actividades" class="hover:bg-blue-50">
         <td class="px-4 py-2 border-t">{{ actividade.nome }}</td>
         <td class="px-4 py-2 border-t">{{ actividade.descricion }}</td>
-        <td class="px-4 py-2 border-t">{{ actividade.data | date:'shortDate' }}</td>
+        <td class="px-4 py-2 border-t">{{ actividade.data | DateEs }}</td>
         <td class="px-4 py-2 border-t">{{ actividade.lugar }}</td>
         <!-- <td class="px-4 py-2 border-t">
           <span *ngIf="actividade.participantes?.length; else senParticipantes">

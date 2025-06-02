@@ -5,6 +5,7 @@ import { SociosLsComponent } from './socios/pages/socios-ls.component';
 import { ActasLsComponent } from './documentos/pages/actas-ls.component';
 import { ActividadesLsComponent } from './actividades/pages/actividades-ls.component';
 import { SociosEdComponent } from './socios/pages/socios-ed.component';
+import { ActividadesEdComponent } from './actividades/pages/actividades-ed.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -42,6 +43,22 @@ export const routes: Routes = [
     data: {
       title: 'Listado de Actividades',
       breadcrumb: [ {nombre: 'Inicio', ruta: 'app'}, {nombre: 'Listado de Actividades', ruta: 'actividades'} ]
+    }
+  },
+  {
+    path: 'actividades/ne',
+    component: ActividadesEdComponent,
+    data: {
+      title: 'Nova Actividade',
+      breadcrumb: [ {nombre: 'Inicio', ruta: 'app'}, {nombre: 'Nova Actividade', ruta: 'actividades'} ]
+    }
+  },
+  {
+    path: 'actividades/ne/:id',
+    component: ActividadesEdComponent,
+    data: {
+      title: 'Editar Actividade',
+      breadcrumb: [ {nombre: 'Inicio', ruta: 'app'}, {nombre: 'Editar Actividade', ruta: 'actividades'} ]
     }
   },
   { path: '**', redirectTo: '' },

@@ -3,13 +3,15 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { RouterLink } from '@angular/router';
 import { Actividade } from '../models/actividade.model';
 import { ActividadesService } from '../services/actividades.service';
+import { DateEsPipe } from 'src/app/shared/pipes/date-es.pipe';
 
 @Component({
   selector: 'app-actividades-ls',
   standalone: true,
   imports: [
     CommonModule,
-    RouterLink
+    RouterLink,
+    DateEsPipe
   ],
   templateUrl: './actividades-ls.component.html',
   styles: [`
@@ -61,5 +63,22 @@ export class ActividadesLsComponent {
     console.log('🔄 Carga de actividades finalizada.');
   }
 
-  borrarActividade(actividade: Actividade) {}
+  borrarActividade(actividade: Actividade) {
+    console.log('🗑️ Borrando actividade:', actividade);
+    this.cargando = true;
+
+    this.actividadesService.deleteActividad(String(actividade._id)).subscribe({
+      next: () => {
+        console.log('✅ Actividade borrada correctamente');
+        // Aquí podes engadir un toast se usas ngx-toastr ou similar
+        this.cdr.detectChanges();
+        this.cargarActividades();
+      },
+      error: (err) => {
+        console.error('❌ Erro ao borrar actividade:', err);
+        this.cargando = false;
+        this.cdr.detectChanges();
+      }
+    });
+  }
 }

@@ -7,5 +7,5 @@ export interface Actividade {
   data:          Date;
   lugar:         string;
   participantes: Socio[];
-  __v:           number;
+  // __v:           number;
 }

@@ -1,0 +1,42 @@
+<h1 class="text-2xl font-bold">{{ titulo }}</h1>
+
+<form class="bg-white rounded py-6 max-w-2xl mx-auto space-y-4" [formGroup]="formEditarActividade" (ngSubmit)="gardarActividade()">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="nome">Nome</label>
+      <input id="nome" type="text" class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+             formControlName="nome" required />
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="descricion">Descrición</label>
+      <input id="descricion" type="text" class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+             formControlName="descricion" required />
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="data">Data</label>
+      <input id="data" type="date" class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+             formControlName="data" required />
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="lugar">Lugar</label>
+      <input id="lugar" type="text" class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+             formControlName="lugar" required />
+    </div>
+    <div class="md:col-span-2">
+      <label class="block text-sm font-medium text-gray-700 mb-1" for="participantes">Participantes</label>
+      <input id="participantes" type="text" class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+             formControlName="participantes" placeholder="IDs dos socios separados por comas" />
+      <!-- Aquí podes mellorar cun selector múltiple de socios se o precisas -->
+    </div>
+  </div>
+  <div class="flex justify-end pt-4 gap-2">
+    <button type="button" class="bg-white text-blue-600 px-6 py-2 rounded hover:bg-gray-100 transition"
+            [routerLink]="['/actividades']">
+      <i class="fas fa-arrow-left mr-2"></i>
+      Volver
+    </button>
+    <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+      Gardar
+    </button>
+  </div>
+</form>
