@@ -7,7 +7,7 @@ Inclúe frontend en Angular 19 e backend en Node.js con base de datos MongoDB.
 
 ## 🧩 Tecnoloxías
 
-- **Frontend**: [Angular 19](https://angular.io/) (sen módulos), [Bulma CSS](https://bulma.io/)
+- **Frontend**: [Angular 19](https://angular.io/) (sen módulos), [TailwindCSS](https://tailwindcss.com/)
 - **Backend**: [Node.js](https://nodejs.org/) + [Express](https://expressjs.com/)
 - **Base de datos**: [MongoDB](https://www.mongodb.com/)
 - **ORM**: [Mongoose](https://mongoosejs.com/)
