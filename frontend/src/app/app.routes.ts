@@ -6,6 +6,7 @@ import { ActasLsComponent } from './documentos/pages/actas-ls.component';
 import { ActividadesLsComponent } from './actividades/pages/actividades-ls.component';
 import { SociosEdComponent } from './socios/pages/socios-ed.component';
 import { ActividadesEdComponent } from './actividades/pages/actividades-ed.component';
+import { authGuard } from './core/auth/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,6 +14,7 @@ export const routes: Routes = [
   {
     path: 'socios',
     component: SociosLsComponent,
+    canActivate: [authGuard],
     data: {
       title: 'Listado de Socios',
       breadcrumb: [ {nombre: 'Inicio', ruta: 'app'}, {nombre: 'Listado de Socios', ruta: 'socios'} ]

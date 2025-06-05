@@ -37,12 +37,12 @@ import { AuthService } from 'src/app/core/auth/auth.service';
 export class SidebarComponent {
 
   public isOpen = true;
-  public rol: 'socio' | 'directivo' | 'webmaster' = 'socio';
+  // public rol: 'socio' | 'directivo' | 'webmaster' = 'socio';
 
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.rol = this.authService.getRol();
+    // this.rol = this.authService.getRol();
   }
 
   toggleSidebar() {

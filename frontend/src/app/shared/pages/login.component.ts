@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,8 +19,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 })
 export class LoginComponent {
   formLogin: FormGroup;
+  erro: string | null = null;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private auth: AuthService,
+    private router: Router
+  ) {
     this.formLogin = this.fb.group({
       usuario: [''],
       contrasinal: ['']
@@ -27,8 +34,15 @@ export class LoginComponent {
 
   login() {
     const { usuario, contrasinal } = this.formLogin.value;
-    // Aquí iría a chamada ao backend para autenticar
-    console.log('Intentando login:', usuario, contrasinal);
-    // Exemplo: this.authService.login(usuario, contrasinal).subscribe(...)
+    this.erro = null;
+    this.auth.login(usuario, contrasinal).subscribe({
+      next: () => {
+        this.router.navigate(['/']); // Redirixe ao inicio ou onde queiras
+      },
+      error: (err) => {
+        this.erro = 'Usuario ou contrasinal incorrectos';
+        console.error(err);
+      }
+    });
   }
 }

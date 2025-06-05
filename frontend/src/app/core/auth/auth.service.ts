@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -6,15 +9,20 @@ import { Injectable } from '@angular/core';
 export class AuthService {
 
   private usuario: 'socio' | 'directivo' | 'webmaster' = 'socio';
+  private apiUrl = 'http://localhost:5000/api/auth'; // Cambia se é necesario
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getRol(): 'socio' | 'directivo' | 'webmaster' {
-    return this.usuario;
+  login(dni: string, password: string) {
+    return this.http.post('http://localhost:5000/api/auth/login', { dni, password });
   }
 
-  setRol(rol: 'socio' | 'directivo' | 'webmaster'): void {
-    this.usuario = rol;
+  logout() {
+    localStorage.removeItem('token');
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
   }
 
 }
