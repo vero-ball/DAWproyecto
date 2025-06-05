@@ -1,10 +1,13 @@
 const Socio = require('../models/Socio');
+const bcrypt = require('bcryptjs');
 
 // Crear novo socio
 exports.crearSocio = async (req, res) => {
   console.log('📝 Creando novo socio:', req.body);
   try {
-    const novoSocio = new Socio(req.body);
+    const { password, ...resto } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const novoSocio = new Socio({ ...resto, password: hashedPassword });
     await novoSocio.save();
     console.log('✅ Socio creado exitosamente:', novoSocio);
     res.status(201).json(novoSocio);

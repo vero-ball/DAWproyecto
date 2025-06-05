@@ -26,6 +26,7 @@ app.post('/upload', upload.single('archivo'), (req, res) => {
 // Rutas
 app.use('/api/socios', require('./routes/socios.routes'));
 app.use('/api/actividades', require('./routes/actividades.routes'));
+app.use('/api/auth', require('./routes/auth.routes'));
 
 // Exportar la aplicación sin iniciar el servidor
 module.exports = app;
