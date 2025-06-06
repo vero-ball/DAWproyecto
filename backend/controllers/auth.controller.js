@@ -18,14 +18,14 @@ exports.login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, socio.password);
     if (!isMatch) return res.status(401).json({ msg: 'Contrasinal incorrecto' });
 
-    const token = jwt.sign(
+    const loginToken = jwt.sign(
       { id: socio._id, directivo: socio.directivo },
       process.env.JWT_SECRET || 'secreto',
       { expiresIn: '24h' }
     );
 
-    res.json({
-      token,
+    return res.json({
+      loginToken,
       socio: {
         id: socio._id,
         nome: socio.nome,
