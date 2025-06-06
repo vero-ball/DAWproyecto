@@ -12,7 +12,9 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   get<T>(endpoint: string): Observable<T> {
-    return this.http.get<T>(`${this.baseUrl}/${endpoint}`).pipe(
+    // Quita a barra se xa a ten
+    const url = endpoint.startsWith('http') ? endpoint : `${this.baseUrl}/${endpoint}`;
+    return this.http.get<T>(url).pipe(
       catchError(this.handleError)
     );
   }

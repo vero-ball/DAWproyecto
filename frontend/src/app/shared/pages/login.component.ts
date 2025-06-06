@@ -27,15 +27,15 @@ export class LoginComponent {
     private router: Router
   ) {
     this.formLogin = this.fb.group({
-      usuario: [''],
-      contrasinal: ['']
+      dni: [''],
+      password: ['']
     });
   }
 
   login() {
-    const { usuario, contrasinal } = this.formLogin.value;
+    const { dni, password } = this.formLogin.value;
     this.erro = null;
-    this.auth.login(usuario, contrasinal).subscribe({
+    this.auth.login(dni, password).subscribe({
       next: () => {
         this.router.navigate(['/']); // Redirixe ao inicio ou onde queiras
       },
