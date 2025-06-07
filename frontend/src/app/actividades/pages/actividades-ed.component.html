@@ -24,9 +24,38 @@
     </div>
     <div class="md:col-span-2">
       <label class="block text-sm font-medium text-gray-700 mb-1" for="participantes">Participantes</label>
-      <input id="participantes" type="text" class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-             formControlName="participantes" placeholder="IDs dos socios separados por comas" />
-      <!-- Aquí podes mellorar cun selector múltiple de socios se o precisas -->
+
+      <!-- Selector múltiple de socios usando formControlName -->
+      <select multiple class="w-full border rounded px-3 py-2 mb-2"
+              formControlName="sociosSeleccionados"
+              (change)="engadirSociosSeleccionados()">
+        <option *ngFor="let socio of socios" [value]="socio._id">
+          {{ socio.numeroSocio }} - {{ socio.nome }} {{ socio.apelidos }}
+        </option>
+      </select>
+
+      <!-- Engadir participante non socio -->
+      <div class="flex gap-2 mb-2">
+        <input #nomeNonSocio type="text" class="border rounded px-2 py-1" placeholder="Nome">
+        <input #apelidosNonSocio type="text" class="border rounded px-2 py-1" placeholder="Apelidos">
+        <button type="button" class="bg-green-500 text-white px-2 rounded"
+                (click)="engadirNonSocio(nomeNonSocio.value, apelidosNonSocio.value); nomeNonSocio.value=''; apelidosNonSocio.value=''">
+          Engadir Non Socio
+        </button>
+      </div>
+
+      <!-- Lista de participantes engadidos -->
+      <ul>
+        <li *ngFor="let p of participantes; let i = index" class="flex items-center gap-2">
+          <span>
+            {{ p.numeroSocio ? (p.numeroSocio + ' - ') : '' }}{{ p.nome }} {{ p.apelidos }}
+            <span class="text-xs px-2 py-1 rounded" [ngClass]="p.eSocio ? 'bg-blue-100 text-blue-800' : 'bg-yellow-100 text-yellow-800'">
+              {{ p.eSocio ? 'Socio' : 'Non socio' }}
+            </span>
+          </span>
+          <button type="button" class="text-red-600" (click)="eliminarParticipante(i)">✕</button>
+        </li>
+      </ul>
     </div>
   </div>
   <div class="flex justify-end pt-4 gap-2">

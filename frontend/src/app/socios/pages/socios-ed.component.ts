@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { SociosService } from '../services/socios.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { formatDateEs } from 'src/app/shared/utils/utils.util';
 
 @Component({
   selector: 'app-socios-ed',
@@ -75,8 +76,10 @@ export class SociosEdComponent implements OnInit {
             enderezo: socio.enderezo,
             telefono: socio.telefono,
             email: socio.email,
-            dataAlta: socio.dataAlta,
-            dataBaixa: socio.dataBaixa,
+            dataAlta: socio.dataAlta ? new Date(socio.dataAlta).toISOString().split('T')[0] : '',
+            dataBaixa: socio.dataBaixa !== undefined && socio.dataBaixa !== null
+              ? new Date(socio.dataBaixa).toISOString().split('T')[0]
+              : '',
             motivoBaixa: socio.motivoBaixa,
             // reciboNumero: socio.reciboNumero,
             // ano: socio.ano,

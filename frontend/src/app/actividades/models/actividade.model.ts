@@ -6,6 +6,13 @@ export interface Actividade {
   descricion:    string;
   data:          Date;
   lugar:         string;
-  participantes: Socio[];
+  participantes: ParticipanteActividade[];
   // __v:           number;
+}
+
+export interface ParticipanteActividade {
+  socio?: string; // id do socio
+  nome?: string;
+  apelidos?: string;
+  eSocio: boolean;
 }
