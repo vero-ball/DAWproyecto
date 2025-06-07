@@ -1,11 +1,18 @@
 const mongoose = require('mongoose');
 
-const actividadSchema = new mongoose.Schema({
+const participanteSchema = new mongoose.Schema({
+  socio: { type: mongoose.Schema.Types.ObjectId, ref: 'Socio' },
+  nome: String,
+  apelidos: String,
+  eSocio: { type: Boolean, required: true }
+}, { _id: false });
+
+const actividadeSchema = new mongoose.Schema({
   nome: { type: String, required: true },
-  descricion: { type: String },
+  descricion: String,
   data: { type: Date, required: true },
-  lugar: { type: String },
-  participantes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Socio' }]
+  lugar: String,
+  participantes: [participanteSchema]
 });
 
-module.exports = mongoose.model('Actividad', actividadSchema);
+module.exports = mongoose.model('Actividade', actividadeSchema);

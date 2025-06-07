@@ -3,7 +3,15 @@ const Actividade = require('../models/Actividade');
 // Crear nova actividade
 exports.crearActividade = async (req, res) => {
   try {
-    const novaActividade = new Actividade(req.body);
+    // Adaptar participantes ao novo formato
+    const participantes = (req.body.participantes || []).map(p => {
+      if (p.eSocio) {
+        return { socio: p._id, eSocio: true };
+      } else {
+        return { nome: p.nome, apelidos: p.apelidos, eSocio: false };
+      }
+    });
+    const novaActividade = new Actividade({ ...req.body, participantes });
     await novaActividade.save();
     res.status(201).json(novaActividade);
   } catch (error) {
@@ -35,7 +43,18 @@ exports.obterActividade = async (req, res) => {
 // Actualizar actividade
 exports.actualizarActividade = async (req, res) => {
   try {
-    const actividade = await Actividade.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const participantes = (req.body.participantes || []).map(p => {
+      if (p.eSocio) {
+        return { socio: p._id, eSocio: true };
+      } else {
+        return { nome: p.nome, apelidos: p.apelidos, eSocio: false };
+      }
+    });
+    const actividade = await Actividade.findByIdAndUpdate(
+      req.params.id,
+      { ...req.body, participantes },
+      { new: true }
+    );
     res.json(actividade);
   } catch (error) {
     res.status(400).json({ error: error.message });

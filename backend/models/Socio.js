@@ -16,4 +16,12 @@ const socioSchema = new mongoose.Schema({
   directivo: { type: Boolean, default: false } // Engadido para permisos
 });
 
+socioSchema.virtual('actividades', {
+  ref: 'Actividade',
+  localField: '_id',
+  foreignField: 'participantes.socio'
+});
+socioSchema.set('toObject', { virtuals: true });
+socioSchema.set('toJSON', { virtuals: true });
+
 module.exports = mongoose.model('Socio', socioSchema);

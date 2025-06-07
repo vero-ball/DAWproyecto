@@ -19,13 +19,19 @@ exports.crearSocio = async (req, res) => {
 
 // Obter todos os socios
 exports.obterSocios = async (req, res) => {
-  console.log('📋 Obteniendo todos os socios...');
   try {
-    const socios = await Socio.find();
-    console.log(`✅ Encontrados ${socios.length} socios:`, socios);
+    const socios = await Socio.find().lean();
+    if (!socios) return res.status(404).json({ msg: 'Socios non atopados' });
+
+    // Buscar actividades nas que participaron
+    const Actividade = require('../models/Actividade');
+    const actividades = await Actividade.find({ 'participantes.socio': { $in: socios.map(s => s._id) } });
+    socios.forEach(s => {
+      s.actividades = actividades.filter(a => a.participantes.some(p => p.socio.equals(s._id)));
+    });
+
     res.json(socios);
   } catch (error) {
-    console.error('❌ Error obteniendo socios:', error);
     res.status(500).json({ error: error.message });
   }
 };
