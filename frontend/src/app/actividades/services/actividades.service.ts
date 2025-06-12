@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { Actividade } from '../models/actividade.model';
 
@@ -17,19 +17,15 @@ export class ActividadesService {
     console.log('🌐 URL:', `http://localhost:5000/api/${this.endpoint}`);
 
     return this.apiService.get<Actividade[]>(this.endpoint).pipe(
-      tap({
-        next: (data) => {
-          console.log('✅ ActividadesService: Datos recibidos:', data);
-          console.log('📊 Tipo de datos:', typeof data);
-          console.log('📊 É array?', Array.isArray(data));
-          console.log('📊 Lonxitude:', data?.length);
-          if (data && data.length > 0) {
-            console.log('📋 Primeiro elemento:', data[0]);
-          }
-        },
-        error: (error) => {
-          console.error('❌ ActividadesService: Error:', error);
+      map((data) => {
+        console.log('✅ ActividadesService: Datos recibidos:', data);
+        console.log('📊 Tipo de datos:', typeof data);
+        console.log('📊 É array?', Array.isArray(data));
+        console.log('📊 Lonxitude:', data?.length);
+        if (data && data.length > 0) {
+          console.log('📋 Primeiro elemento:', data[0]);
         }
+        return data;
       })
     );
   }
@@ -39,13 +35,9 @@ export class ActividadesService {
     console.log('🌐 URL:', `http://localhost:5000/api/${this.endpoint}/${id}`);
 
     return this.apiService.get<Actividade>(`${this.endpoint}/${id}`).pipe(
-      tap({
-        next: (data) => {
-          console.log('✅ ActividadesService: Actividade recibida:', data);
-        },
-        error: (error) => {
-          console.error('❌ ActividadesService: Error en getActividadById:', error);
-        }
+      map((data) => {
+        console.log('✅ ActividadesService: Actividade recibida:', data);
+        return data;
       })
     );
   }
@@ -56,13 +48,9 @@ export class ActividadesService {
     console.log('📦 Datos enviados:', actividade);
 
     return this.apiService.post<Actividade>(this.endpoint, actividade).pipe(
-      tap({
-        next: (data) => {
-          console.log('✅ ActividadesService: Actividade creada:', data);
-        },
-        error: (error) => {
-          console.error('❌ ActividadesService: Error en createActividad:', error);
-        }
+      map((data) => {
+        console.log('✅ ActividadesService: Actividade creada:', data);
+        return data;
       })
     );
   }
@@ -73,13 +61,9 @@ export class ActividadesService {
     console.log('📦 Datos enviados:', actividade);
 
     return this.apiService.put<Actividade>(`${this.endpoint}/${id}`, actividade).pipe(
-      tap({
-        next: (data) => {
-          console.log('✅ ActividadesService: Actividade actualizada:', data);
-        },
-        error: (error) => {
-          console.error('❌ ActividadesService: Error en updateActividad:', error);
-        }
+      map((data) => {
+        console.log('✅ ActividadesService: Actividade actualizada:', data);
+        return data;
       })
     );
   }
@@ -89,13 +73,9 @@ export class ActividadesService {
     console.log('🌐 URL:', `http://localhost:5000/api/${this.endpoint}/${id}`);
 
     return this.apiService.delete(`${this.endpoint}/${id}`).pipe(
-      tap({
-        next: (data) => {
-          console.log('✅ ActividadesService: Actividade borrada:', data);
-        },
-        error: (error) => {
-          console.error('❌ ActividadesService: Error en deleteActividad:', error);
-        }
+      map((data) => {
+        console.log('✅ ActividadesService: Actividade borrada:', data);
+        return data;
       })
     );
   }

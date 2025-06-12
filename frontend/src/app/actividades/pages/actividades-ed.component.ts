@@ -6,6 +6,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Socio } from 'src/app/socios/models/socio.model';
 import { SociosService } from 'src/app/socios/services/socios.service';
 import { CommonModule } from '@angular/common';
+import { InscricionsService } from 'src/app/inscricions/services/inscricions.service';
 
 @Component({
   selector: 'app-actividades-ed',
@@ -39,6 +40,7 @@ export class ActividadesEdComponent implements OnInit {
   constructor(
     private actividadesService: ActividadesService,
     private sociosService: SociosService,
+    private inscricionsService: InscricionsService,
     private cdr: ChangeDetectorRef, // Inxecta ChangeDetectorRef se necesitas notificar cambios manualmente
     private fb: FormBuilder, // Inyecta FormBuilder se necesitas formularios reactivos
     private activatedRoute: ActivatedRoute, // Inyecta ActivatedRoute para acceder aos parámetros da ruta
@@ -71,12 +73,10 @@ export class ActividadesEdComponent implements OnInit {
             descricion: actividade.descricion,
             data: actividade.data ? new Date(actividade.data).toISOString().split('T')[0] : '',
             lugar: actividade.lugar,
-            participantes: actividade.participantes ?? [],
+            participantes: actividade.participantes?.map((s: any) => s._id) ?? [],
           });
-          // Engade esta liña para sincronizar a lista visual:
           this.participantes = actividade.participantes ? [...actividade.participantes] : [];
           this.cdr.markForCheck();
-          console.log('🔄 Actividade cargada:', this.actividade);
         });
       } else {
         this.actividade = {
@@ -96,6 +96,16 @@ export class ActividadesEdComponent implements OnInit {
       console.log('Socios cargados:', this.socios);
     });
     // Se editas, carga tamén os participantes existentes en this.participantes
+  }
+
+  cargarInscritos() {
+    if (this.actividade && this.actividade._id) {
+      this.inscricionsService.getInscritosPorActividade(this.actividade._id).subscribe(inscritos => {
+        this.participantes = inscritos;
+        this.cdr.markForCheck();
+        console.log('🔄 Inscritos cargados:', inscritos);
+      });
+    }
   }
 
   engadirSociosSeleccionados() {
@@ -122,22 +132,15 @@ export class ActividadesEdComponent implements OnInit {
 
   gardarActividade() {
     if (this.formEditarActividade.valid) {
-      const actividadeData: Actividade = this.formEditarActividade.value;
-      // Transforma participantes ao formato esperado polo backend
-      actividadeData.participantes = this.participantes.map(p => {
-        if (p.eSocio) {
-          return { socio: p._id, eSocio: true };
-        } else {
-          return { nome: p.nome, apelidos: p.apelidos, eSocio: false };
-        }
-      });
+      const actividadeData: any = {
+        ...this.formEditarActividade.value,
+        participantes: this.participantes.map(p => p._id) // só IDs de socios
+      };
       this.cargando = true;
 
-      // Se existe _id, actualizar; se non, crear nova actividade
       if (this.actividade && this.actividade._id) {
-        // Actualizar actividade existente
         this.actividadesService.actualizaActividad(this.actividade._id, actividadeData).subscribe({
-          next: () => {
+          next: (actividadeActualizada) => {
             this.cargando = false;
             this.router.navigate(['/actividades']);
           },
@@ -147,9 +150,8 @@ export class ActividadesEdComponent implements OnInit {
           }
         });
       } else {
-        // Crear nova actividade
         this.actividadesService.createActividad(actividadeData).subscribe({
-          next: () => {
+          next: (novaActividade) => {
             this.cargando = false;
             this.router.navigate(['/actividades']);
           },
@@ -164,4 +166,28 @@ export class ActividadesEdComponent implements OnInit {
     }
   }
 
+  // Crea as inscricións para os socios seleccionados
+  crearInscricions(actividadeId: string, sociosIds: string[]) {
+    if (sociosIds.length === 0) {
+      this.cargando = false;
+      this.router.navigate(['/actividades']);
+      return;
+    }
+    let creadas = 0;
+    sociosIds.forEach(socioId => {
+      this.inscricionsService.crearInscricion(socioId, actividadeId).subscribe({
+        next: () => {
+          creadas++;
+          if (creadas === sociosIds.length) {
+            this.cargando = false;
+            this.router.navigate(['/actividades']);
+          }
+        },
+        error: (err) => {
+          console.error('❌ Erro creando inscrición:', err);
+          this.cargando = false;
+        }
+      });
+    });
+  }
 }
