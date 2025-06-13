@@ -3,6 +3,10 @@
     <a class="font-bold text-lg text-secondary hover:text-accent transition-colors" routerLink="/">Centro Social</a>
   </div>
   <div class="flex items-center space-x-6">
+    @if(!isLoggedIn()){
     <a class="text-light hover:text-accent transition-colors" [routerLink]="['login']">Login</a>
+    } @else {
+    <button class="text-light hover:text-accent transition-colors" (click)="logout()">Pechar sesión</button>
+    }
   </div>
 </nav>
